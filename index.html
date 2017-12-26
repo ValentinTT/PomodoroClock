@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Pomodoro Clock</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Courgette|Great+Vibes|Libre+Baskerville|Ravi+Prakash|Shrikhand" rel="stylesheet">
+    <!--Font Awesome-->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.2/js/all.js"></script>
+    <!--My Style-->
+    <link href="css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Pomodoro Timer</h1>
+    </header>
+    <section class="potato-clock">
+        <section class="clock-container">
+            <div class="clock">
+                <div class="work-clock">
+                    <div class="tick-tack"></div>
+                    <div class="display">25:00</div>
+                </div>
+                <div class="break-clock">
+                    <div class="tick-tack"></div>
+                    <div class="display">5:00</div>
+                </div>
+            </div>
+        </section>
+        <section class="potato-buttons">
+            <nav class="clock-buttons-animation">
+                <a href="#">
+                    <i class="fas fa-play"></i>
+                </a>
+                <!--<a href="#">
+                <i class="fas fa-pause"></i>
+                </a>
+                <a href="#">
+                    <i class="fas fa-stop"></i>
+                </a>
+                -->
+            </nav>
+        </section>
+    </section>
+    <section class="change-durations">
+        <div class="work-duration">
+            (work)
+            <div class="work-duration-value">25 min</div>
+        </div>
+        <div class="break-duration">
+            (break)
+            <div class="break-duration-value">5 min</div>
+        </div>
+        <input class="work-duration-input" type="range" min="1" max="60" step="1" value="25">
+        <input class="break-duration-input" type="range" min="1" max="60" step="1" value="5">
+    </section>
+    <footer>
+        <h1>This pomodoro was
+            <span><i class="fas fa-code"></i></span> by <a href="#">Valentin TT</a></h1>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/myJs.js"></script>
+</body>
+
+</html>
