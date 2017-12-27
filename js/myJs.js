@@ -1,11 +1,14 @@
 $(document).ready(function() {
+    var audioClock = new Audio('../mp3/beep.mp3');
+    audioClock.onloadeddata = function() {
+        //console.log(audioClock.duration);
+    };
     /*All durations are in seconds*/
     let workTimeDuration = 0;
     let breakTimeDuration = 0;
     let isSessionPlayed = false; //If the timer is in pauso or stoped
     let isInWorking = true; //Indicate if the timer is for the working or breaking time
     let intervalId = 0;
-
 
     //PlayListener 
     addPlayButtonListener();
@@ -43,17 +46,25 @@ $(document).ready(function() {
             $('.work-clock .display').html(secondsToHours(workTimeDuration));
             if (workTimeDuration === 0) { //The work time has finished
                 workTimeDuration = Number.parseInt($('.work-duration-input').val()) * 60; //Restore work duration
-                console.log("WORK TIME", workTimeDuration);
                 isInWorking = false;
                 $('.work-clock .clock-hand').removeClass('tick-tack');
-                $('.clock').css('transform', 'rotateY(180deg)');
                 flipAnimationCompleated = false;
-                let animationInterval = setInterval(function() {
-                    $('.break-clock .clock-hand').addClass('tick-tack');
-                    $('.work-clock .display').html($('.work-duration-input').val() + ":00"); //Restore the clock display after it has flipped
-                    flipAnimationCompleated = true;
-                    clearInterval(animationInterval);
-                }, 1000); //Add tick-tack class when the animation has ended
+                audioClock.play(); //Start Audio to inform the user that the time has finished
+                let audioInterval = setInterval(function() {
+                    audioClock.pause(); //Stop the audio
+                    audioClock.currentTime = 0; //Reset the audio
+                    $('.clock').css('transform', 'rotateY(180deg)'); //Start clockflip
+                    clearInterval(audioInterval);
+                    let animationInterval = setInterval(function() {
+                        $('.break-clock .clock-hand').addClass('tick-tack');
+                        $('.work-clock .display').html($('.work-duration-input').val() + ":00"); //Restore the clock display after it has flipped
+                        flipAnimationCompleated = true;
+                        clearInterval(animationInterval);
+                    }, 1000); //Add tick-tack class when the animation has ended
+                    /*The audio duration attribute is in seconds and need to be in milis
+                     * The audio duration is passed to int to avoid stoping the animations in the middle of their executations
+                     */
+                }, parseInt(audioClock.duration) * 1000);
             }
         } else {
             breakTimeDuration--;
@@ -62,14 +73,23 @@ $(document).ready(function() {
                 breakTimeDuration = Number.parseInt($('.break-duration-input').val()) * 60; //Restore break duration
                 isInWorking = true;
                 $('.break-clock .clock-hand').removeClass('tick-tack');
-                $('.clock').css('transform', 'rotateY(0deg)');
                 flipAnimationCompleated = false;
-                let animationInterval = setInterval(function() {
-                    $('.work-clock .clock-hand').addClass('tick-tack');
-                    $('.break-clock .display').html($('.break-duration-input').val() + ":00"); //Restore the clock display after it has flipped
-                    flipAnimationCompleated = true;
-                    clearInterval(animationInterval);
-                }, 1000); //Add tick-tack class when the animation has ended
+                audioClock.play(); //Start Audio to inform the user that the time has finished
+                let audioInterval = setInterval(function() {
+                    audioClock.pause(); //Stop the audio
+                    audioClock.currentTime = 0; //Reset the audio
+                    $('.clock').css('transform', 'rotateY(0deg)'); //Start clockflip
+                    clearInterval(audioInterval);
+                    let animationInterval = setInterval(function() {
+                        $('.work-clock .clock-hand').addClass('tick-tack');
+                        $('.break-clock .display').html($('.break-duration-input').val() + ":00"); //Restore the clock display after it has flipped
+                        flipAnimationCompleated = true;
+                        clearInterval(animationInterval);
+                    }, 1000); //Add tick-tack class when the animation has ended
+                    /*The audio duration attribute is in seconds and need to be in milis
+                     * The audio duration is passed to int to avoid stoping the animations in the middle of their executations
+                     */
+                }, parseInt(audioClock.duration) * 1000);
             }
         }
     }

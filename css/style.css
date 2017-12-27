@@ -185,6 +185,11 @@ header h1 {
   border-radius: 50%;
 }
 
+.potato-clock .clock-container .clock .work-clock .pulsing, .potato-clock .clock-container .clock .break-clock .pulsing {
+  -webkit-animation: pulsing .5s linear infinite;
+          animation: pulsing .5s linear infinite;
+}
+
 .potato-clock .clock-container .clock .work-clock .tick-tack, .potato-clock .clock-container .clock .break-clock .tick-tack {
   -webkit-animation: ticking 1s ease-in-out infinite;
           animation: ticking 1s ease-in-out infinite;
@@ -439,6 +444,42 @@ footer h1 a:hover::before {
   100% {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes pulsing {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+    opacity: .85;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulsing {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+    opacity: .85;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
   }
 }
 /*# sourceMappingURL=style.css.map */
